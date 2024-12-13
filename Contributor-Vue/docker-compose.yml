@@ -1,0 +1,20 @@
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+    volumes:
+      - app-dist:/app/dist
+
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - app-dist:/usr/share/nginx/html
+
+volumes:
+  app-dist:
+    driver: local
